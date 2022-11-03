@@ -10,6 +10,10 @@ import { takeEvery, put } from 'redux-saga/effects'
 
 
 const favReducer = (state = [], action) =>{
+  switch(action.type){
+    case 'FETCH_FAVS':
+      return state
+  }
   return state
 }
 
