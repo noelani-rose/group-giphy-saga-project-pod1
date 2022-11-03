@@ -17,7 +17,7 @@ function SearchForm() {
         console.log('searching for...', searchInput)
 
         dispatch({
-            type: '',
+            type: 'SET_SEARCH',
             payload: searchInput
         })
     }

@@ -9,20 +9,7 @@ function App(props) {
 
   const [gifs, setGifs] = useState({});  
 
-  function searchGif() {
-    axios({
-      method: 'GET',
-      url: '/search',
-      // data: 'funny'
-    })
-      .then(res => {
-        console.log('getting gifs', res.data);
-        //setGifs(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-  }
+  
 
   return (
     <Router>
@@ -31,7 +18,7 @@ function App(props) {
 
       < SearchForm />
 
-      <button onClick={searchGif}>Search</button>
+      
 
     </div>
     </Router>

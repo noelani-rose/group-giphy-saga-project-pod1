@@ -23,13 +23,14 @@ app.use('/api/category', categoryRouter);
 
 // Giphy api route
 app.get('/search', (req, res) => {
+  console.log('req.body is ', req.body)
   axios({
       method: 'GET',
       url: 'https://api.giphy.com/v1/gifs/search',
       params: {
           api_key: process.env.GIPHY_API_KEY,
-          q: 'funny',
-          limit: 10
+          q: req.body,
+          limit: 9
       }
   })
   .then((apiRes) => {

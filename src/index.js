@@ -7,6 +7,7 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import logger from 'redux-logger';
 import { Provider } from 'react-redux';
 import { takeEvery, put } from 'redux-saga/effects'
+import axios from 'axios';
 
 
 const favReducer = (state = [], action) =>{
@@ -29,8 +30,6 @@ function* fetchGifs(){
     })
   };
 
-
-
   //POST gifs categories router
 function* setCat(action){
     console.log('in setCat', action);
@@ -44,8 +43,6 @@ function* setCat(action){
     })
   };
 
-
-
 //POST gifs favorites router
 function* addFavs(action){
     console.log('in addFavs', action);
@@ -58,8 +55,6 @@ function* addFavs(action){
         type: 'ADD_FAV'
     })
   };
-
-
 
   //GET gifts favorites router
   function* getFavs(){
@@ -76,7 +71,25 @@ function* addFavs(action){
     })
   };
 
+  
+    function* search(action) {
+      console.log('action.payload is ', action.payload)
+      // let searchTerm = {term:action.payload}
+      axios({
+        method: 'GET',
+        url: '/search',
+        data: action.payload
+      })
+        .then(res => {
+          console.log('getting gifs', res.data);
+          //setGifs(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+    }
 
+  
 
 
 
@@ -87,6 +100,8 @@ const sagaMiddleware = createSagaMiddleware();
 
 //write each of these functions
 function* watcherSaga() {
+
+      yield takeEvery('SET_SEARCH', search);
 
 //     yield takeEvery('GET_GIFS', fetchGifs);
 
