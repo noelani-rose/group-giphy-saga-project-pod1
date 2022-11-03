@@ -14,6 +14,14 @@ const favReducer = (state = [], action) =>{
   return state
 }
 
+const searchReducer = ( state =[], action) => {
+  switch(action.type){
+    case 'SET_GIFS':
+      return action.payload
+  }
+  
+  return state
+}
 
 //GET gifs category router
 function* fetchGifs(){
@@ -71,23 +79,33 @@ function* addFavs(action){
     })
   };
 
-  
-    function* search(action) {
-      console.log('action.payload is ', action.payload)
-      // let searchTerm = {term:action.payload}
-      axios({
-        method: 'GET',
-        url: '/search',
-        data: action.payload
-      })
-        .then(res => {
-          console.log('getting gifs', res.data);
-          //setGifs(res.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        })
-    }
+  function* search(action) {
+   const response = yield axios.get(`/search/${action.payload}`)
+
+    yield put({
+              type: 'SET_GIFS',
+              payload: response.data
+            })
+  }
+
+    // function* search(action) {
+    //   console.log('action.payload is ', action.payload)
+    //   // let searchTerm = {term:action.payload}
+    //   axios({
+    //     method: 'GET',
+    //     url:`/search/${action.payload}`,
+    //   })
+    //     .then(res => {
+    //       console.log('getting gifs', res.data);
+    //      yield put({
+    //         type: 'SET_GIFS',
+    //         payload: res.data
+    //       })
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //     })
+    // }
 
   
 
@@ -103,6 +121,7 @@ function* watcherSaga() {
 
       yield takeEvery('SET_SEARCH', search);
 
+     
 //     yield takeEvery('GET_GIFS', fetchGifs);
 
 //     yield takeEvery('ADD_FAV', addFavs);
@@ -123,6 +142,7 @@ const storeInstance = createStore(
         // catReducer,
        // secondReducer,
        favReducer,
+       searchReducer
 
     }),
     // This adds middlewares. Logger should be last!
