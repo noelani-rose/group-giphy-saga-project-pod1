@@ -11,16 +11,24 @@ function SearchForm() {
         console.log(event.target.value)
         setSearchInput(event.target.value)
     }
-    searchGiphy = (input) => {
-        console.log('searching for...', input)
+    
+    const searchGiphy = (event) => {
+        event.preventDefault();
+        console.log('searching for...', searchInput)
+
+        dispatch({
+            type: '',
+            payload: searchInput
+        })
     }
 
     return (
-        <form onSubmit={() => {searchGiphy(input)}}>
+        <form onSubmit={searchGiphy}>
             <h2>What are you looking for?</h2>
-            <input placeholder='dinosaur'/>
+            <input 
+                placeholder='dinosaur'
+                onChange={handleInputChange}/>
             <button 
-                    onChange={handleInputChange}
                     type='submit'>
                    Fetch me my gif!
             </button>
