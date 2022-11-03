@@ -1,6 +1,7 @@
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
-
+const axios = require('axios');
 const app = express();
 // App PORT set with production check
 const PORT = process.env.PORT || 5000;
@@ -19,6 +20,28 @@ app.use(express.static('build'));
 // Routes
 app.use('/api/favorite', favoriteRouter);
 app.use('/api/category', categoryRouter);
+
+// Giphy api route
+app.get('/search', (req, res) => {
+  axios({
+      method: 'GET',
+      url: 'https://api.giphy.com/v1/gifs/search',
+      params: {
+          api_key: process.env.GIPHY_API_KEY,
+          q: 'funny',
+          limit: 10
+      }
+  })
+  .then((apiRes) => {
+      // send back the data from giphy
+      console.log('API get request success!')
+      res.send(apiRes.data);
+  })
+  .catch((err) => {
+      console.error('API req failed', err);
+      res.sendStatus(500);
+  })
+});
 
 // Listen
 app.listen(PORT, () => {
