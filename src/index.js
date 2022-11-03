@@ -61,7 +61,7 @@ function* addFavs(action){
 
 
 
-  //GET gifts favorites router
+  //GET gifs favorites router
   function* getFavs(){
     console.log('in getFavs');
   

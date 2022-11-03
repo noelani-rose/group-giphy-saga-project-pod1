@@ -17,4 +17,23 @@ router.get('/', (req, res) => {
     });
 });
 
+router.get('/:cat', (req, res) => {
+  //set variable for category
+  let catName = req.params.cat;
+  // return all categories
+  const queryText = `SELECT *
+                    FROM favorites 
+                    WHERE category = $1
+                    ORDER BY name ASC;`;
+  pool
+    .query(queryText, [catName])
+    .then((result) => {
+      res.send(result.rows);
+    })
+    .catch((error) => {
+      console.log(`Error on query ${error}`);
+      res.sendStatus(500);
+    });
+});
+
 module.exports = router;
