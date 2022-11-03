@@ -3,6 +3,15 @@ import ReactDOM from 'react-dom';
 import App from './components/App/App';
 // bringing redux-saga into our project
 import createSagaMiddleware from 'redux-saga';
+import { createStore, applyMiddleware, combineReducers } from 'redux';
+import logger from 'redux-logger';
+import { Provider } from 'react-redux';
+import { takeEvery, put } from 'redux-saga/effects'
+
+
+const favReducer = (state = [], action) =>{
+  return state
+}
 
 
 //GET gifs category router
@@ -79,15 +88,15 @@ const sagaMiddleware = createSagaMiddleware();
 //write each of these functions
 function* watcherSaga() {
 
-    yield takeEvery('GET_GIFS', fetchGifs);
+//     yield takeEvery('GET_GIFS', fetchGifs);
 
-    yield takeEvery('ADD_FAV', addFavs);
+//     yield takeEvery('ADD_FAV', addFavs);
 
-    yield takeEvery('SET_CAT', setCat);
+//     yield takeEvery('SET_CAT', setCat);
 
-    yield takeEvery('FETCH_FAV', getFavs);
+//     yield takeEvery('FETCH_FAV', getFavs);
 
-    yield takeEvery(`FETCH_${CAT}`, getCat);
+//     yield takeEvery(`FETCH_${CAT}`, getCat);
 
 }
 
@@ -96,7 +105,7 @@ const storeInstance = createStore(
     // reducer is a function that runs every time an action is dispatched
     combineReducers({
         //firstReducer,
-        catReducer,
+        // catReducer,
        // secondReducer,
        favReducer,
 
@@ -108,4 +117,4 @@ const storeInstance = createStore(
 // This allows the watcherSaga to start watching for actions
 sagaMiddleware.run(watcherSaga);
 
-ReactDOM.render(<Provider store={storeInstance}><App /></Provider>, document.getElementById('react-root'));
+ReactDOM.render(<Provider store={storeInstance}><App /></Provider>, document.getElementById('root'));
