@@ -7,7 +7,8 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import logger from 'redux-logger';
 import { Provider } from 'react-redux';
 import { takeEvery, put } from 'redux-saga/effects'
-import axios from 'axios'
+import axios from 'axios';
+
 
 
 const favReducer = (state = [], action) =>{
@@ -18,6 +19,14 @@ const favReducer = (state = [], action) =>{
   return state
 }
 
+const searchReducer = ( state =[], action) => {
+  switch(action.type){
+    case 'SET_GIFS':
+      return action.payload
+  }
+  
+  return state
+}
 
 //GET gifs category router
 function* fetchGifs(){
@@ -34,8 +43,6 @@ function* fetchGifs(){
     })
   };
 
-
-
   //POST gifs categories router
 function* setCat(action){
     console.log('in setCat', action);
@@ -49,8 +56,6 @@ function* setCat(action){
     })
   };
 
-
-
 //POST gifs favorites router
 function* addFavs(action){
     console.log('in addFavs', action);
@@ -63,8 +68,6 @@ function* addFavs(action){
         type: 'ADD_FAV'
     })
   };
-
-
 
   //GET gifts favorites router
   function* getFavs(){
@@ -85,7 +88,35 @@ function* addFavs(action){
     // })
   };
 
+  function* search(action) {
+   const response = yield axios.get(`/search/${action.payload}`)
 
+    yield put({
+              type: 'SET_GIFS',
+              payload: response.data
+            })
+  }
+
+    // function* search(action) {
+    //   console.log('action.payload is ', action.payload)
+    //   // let searchTerm = {term:action.payload}
+    //   axios({
+    //     method: 'GET',
+    //     url:`/search/${action.payload}`,
+    //   })
+    //     .then(res => {
+    //       console.log('getting gifs', res.data);
+    //      yield put({
+    //         type: 'SET_GIFS',
+    //         payload: res.data
+    //       })
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //     })
+    // }
+
+  
 
 
 
@@ -97,6 +128,9 @@ const sagaMiddleware = createSagaMiddleware();
 //write each of these functions
 function* watcherSaga() {
 
+      yield takeEvery('SET_SEARCH', search);
+
+     
 //     yield takeEvery('GET_GIFS', fetchGifs);
 
 //     yield takeEvery('ADD_FAV', addFavs);
@@ -117,6 +151,7 @@ const storeInstance = createStore(
         // catReducer,
        // secondReducer,
        favReducer,
+       searchReducer
 
     }),
     // This adds middlewares. Logger should be last!
