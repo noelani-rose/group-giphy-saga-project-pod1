@@ -38,7 +38,7 @@ function* fetchGifs(){
   
     
     yield put({
-        type: 'GET_GIFS',
+        type: 'SET_GIFS',
         payload: response.data
     })
   };
@@ -82,10 +82,6 @@ function* addFavs(action){
       payload: response.data
     })
     
-    // yield put({
-    //     type: 'FETCH_FAVS',
-    //     payload: response.data
-    // })
   };
 
   function* search(action) {
@@ -131,7 +127,7 @@ function* watcherSaga() {
       yield takeEvery('SET_SEARCH', search);
 
      
-//     yield takeEvery('GET_GIFS', fetchGifs);
+    // yield takeEvery('GET_GIFS', fetchGifs);
 
 //     yield takeEvery('ADD_FAV', addFavs);
 
