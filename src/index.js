@@ -7,9 +7,14 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import logger from 'redux-logger';
 import { Provider } from 'react-redux';
 import { takeEvery, put } from 'redux-saga/effects'
+import axios from 'axios'
 
 
 const favReducer = (state = [], action) =>{
+  switch(action.type){
+    case 'SET_FAVS':
+      return state
+  }
   return state
 }
 
@@ -68,12 +73,16 @@ function* addFavs(action){
     let response = yield axios.get('/api/favorite');
     console.log('GET response:', response)
   
-  
     
     yield put({
-        type: 'FETCH_FAVS',
-        payload: response.data
+      type: 'SET_FAVS',
+      payload: response.data
     })
+    
+    // yield put({
+    //     type: 'FETCH_FAVS',
+    //     payload: response.data
+    // })
   };
 
 
@@ -94,7 +103,7 @@ function* watcherSaga() {
 
 //     yield takeEvery('SET_CAT', setCat);
 
-//     yield takeEvery('FETCH_FAV', getFavs);
+    yield takeEvery('FETCH_FAVS', getFavs);
 
 //     yield takeEvery(`FETCH_${CAT}`, getCat);
 
