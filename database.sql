@@ -22,3 +22,9 @@ CREATE TABLE "favorites_category" (
 );
 
 
+
+
+-- SELECT * 
+-- FROM "movies"
+-- JOIN "movies_genres" ON "movie_id"."genre_id" = favorite.id 
+-- JOIN category ON favorite_category.category_id = category.id 

@@ -14,7 +14,7 @@ function App(props) {
 
   const [gifs, setGifs] = useState({});  
 
-  
+  // add nav bar to go to search or favorites page 
 
   return (
     <Router>
