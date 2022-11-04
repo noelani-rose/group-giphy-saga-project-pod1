@@ -8,6 +8,8 @@ import FavoritesItems from "../FavoritesItems/FavoritesItems"
 function FavoriteList () {
     const dispatch = useDispatch()
     const history = useHistory();
+    const favList = useSelector(store => store.favReducer)
+    console.log('fav list is', favList)
     // const [favorite, setFavorite] = useSelector(store => store.favReducer)
 
     useEffect(() => {
@@ -24,7 +26,10 @@ function FavoriteList () {
     return (
         <>
             <h2>Here is the favorites list...</h2>
-            <FavoritesItems />
+            {favList.map(fav => (
+                <FavoritesItems fav = {fav}/>
+            ))}
+            
             <button onClick = {homePage}>Back to Homepage</button>
             
         </>

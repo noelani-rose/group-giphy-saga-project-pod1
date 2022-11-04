@@ -5,7 +5,15 @@ const router = express.Router();
 
 // return all favorite images
 router.get('/', (req, res) => {
-  res.sendStatus(200);
+  const queryText = `SELECT * FROM "favorites";`
+
+  pool.query(queryText)
+  .then((result) => {
+    res.send(result.rows);
+  })
+  .catch((err) => {
+    console.log('error getting favorites db back', err)
+  })
 });
 
 // add a new favorite
@@ -17,7 +25,7 @@ router.post('/', (req, res) => {
   const sqlParams = [req.body.url]
 
   pool.query(queryText, sqlParams)
-  .then((res) => {
+  .then((result) => {
     res.sendStatus(200);
   })
   .catch((err) => {

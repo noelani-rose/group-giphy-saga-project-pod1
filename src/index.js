@@ -12,9 +12,11 @@ import axios from 'axios';
 
 
 const favReducer = (state = [], action) =>{
+  console.log('the fav reducer actionpaylod is', action.payload)
   switch(action.type){
-    case 'SET_FAVS':
-      return state
+    // case 'SET_FAV':
+      case 'SET_FAVS':
+      return action.payload
   }
   return state
 }
@@ -65,13 +67,15 @@ function* addFavs(action){
   
     //trigger a GET request
     yield put({
-        type: 'SET_FAV'
+        // type: 'SET_FAV',
+        type: 'FETCH_FAVS'
+        // payload: response.data
     })
   };
 
-  //GET gifts favorites router
-  function* getFavs(){
-    console.log('in getFavs');
+  //GET gifs favorites router
+  function* fetchFavs(){
+    console.log('in fetchFavs');
   
     let response = yield axios.get('/api/favorite');
     console.log('GET response:', response)
@@ -93,26 +97,6 @@ function* addFavs(action){
             })
   }
 
-    // function* search(action) {
-    //   console.log('action.payload is ', action.payload)
-    //   // let searchTerm = {term:action.payload}
-    //   axios({
-    //     method: 'GET',
-    //     url:`/search/${action.payload}`,
-    //   })
-    //     .then(res => {
-    //       console.log('getting gifs', res.data);
-    //      yield put({
-    //         type: 'SET_GIFS',
-    //         payload: res.data
-    //       })
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //     })
-    // }
-
-  
 
 
 
@@ -133,7 +117,7 @@ function* watcherSaga() {
 
 //     yield takeEvery('SET_CAT', setCat);
 
-    yield takeEvery('FETCH_FAVS', getFavs);
+    yield takeEvery('FETCH_FAVS', fetchFavs);
 
 //     yield takeEvery(`FETCH_${CAT}`, getCat);
 
