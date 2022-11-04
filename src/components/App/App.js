@@ -34,8 +34,7 @@ function App(props) {
         <FavoriteList />
       </Route>
 
-      <button onClick={searchGif}>Search</button>
-    </div>
+      {/* <button onClick={searchGif}>Search</button> */}
     </Router>
   );
 }

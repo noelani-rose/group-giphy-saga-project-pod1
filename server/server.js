@@ -23,7 +23,6 @@ app.use('/api/category', categoryRouter);
 
 // Giphy api route
 app.get('/search/:term', (req, res) => {
-  console.log('req.body is ', req);
   let searchTerm = req.params.term;
   axios({
       method: 'GET',
