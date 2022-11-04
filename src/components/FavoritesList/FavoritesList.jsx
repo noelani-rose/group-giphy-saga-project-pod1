@@ -25,7 +25,7 @@ function FavoriteList () {
         <>
             <h2>Here is the favorites list...</h2>
             <FavoritesItems />
-            <button onClick = {homePage}></button>
+            <button onClick = {homePage}>Back to Homepage</button>
             
         </>
     )
