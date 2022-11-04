@@ -10,13 +10,24 @@ function FavoriteList () {
     const history = useHistory();
     const favList = useSelector(store => store.favReducer)
     console.log('fav list is', favList)
-    // const [favorite, setFavorite] = useSelector(store => store.favReducer)
 
-    useEffect(() => {
-        dispatch({
-            type: 'FETCH_FAVS'
-        })
-    }, [])
+    // useEffect(() => {
+    //     dispatch({
+    //         type: 'FETCH_FAVS'
+    //     })
+    // }, [])
+
+    // this will go to watcher saga
+    // const addCatFunny = (event) => {
+    //     dispatch({
+    //         type: 'ADD_CAT',
+    //         payload: event
+    //     })
+    // }
+
+
+
+
 
 
     const homePage = () => {
@@ -29,7 +40,8 @@ function FavoriteList () {
             {favList.map(fav => (
                 <FavoritesItems fav = {fav}/>
             ))}
-            
+            {/* DROP DOWN HERE */}
+            {/* ON SELECT = {(event) => addCat('funny')} */}
             <button onClick = {homePage}>Back to Homepage</button>
             
         </>

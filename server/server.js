@@ -22,6 +22,7 @@ app.use('/api/favorite', favoriteRouter);
 app.use('/api/category', categoryRouter);
 
 // Giphy api route
+// could also do app.get('/') and req is req.query.query
 app.get('/search/:term', (req, res) => {
   let searchTerm = req.params.term;
   axios({
@@ -33,12 +34,20 @@ app.get('/search/:term', (req, res) => {
           limit: 9
       }
   })
+  // send this as 
+    //let dataToSend = apiRes.data.data.map(item -> {
+      // return {
+        // image_url: item.downsized.url,
+        // title: item.title
+    // }
+    
   .then((apiRes) => {
       // send back the data from giphy
       console.log('API get request success!')
       res.send(apiRes.data);
   })
   .catch((err) => {
+    // err.response.data to give more specific error message
       console.error('API req failed', err);
       res.sendStatus(500);
   })

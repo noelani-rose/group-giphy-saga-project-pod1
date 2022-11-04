@@ -10,6 +10,8 @@ function SearchItems ({gif}) {
     const label = { inputProps: { 'aria-label' : 'Checkbox demo' } }
     console.log('the gif from search list is', gif)
     const dispatch = useDispatch();
+
+    
     const addFavorite = () => {
         console.log('in addfavorite function')
         dispatch({
