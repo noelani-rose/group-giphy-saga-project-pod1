@@ -61,11 +61,11 @@ function* addFavs(action){
     console.log('in addFavs', action);
     
   //post the payload
-    yield axios.post('/api/favorite', action.payload);
+    yield axios.post(`/api/favorite/`, action.payload);
   
     //trigger a GET request
     yield put({
-        type: 'ADD_FAV'
+        type: 'SET_FAV'
     })
   };
 
@@ -129,7 +129,7 @@ function* watcherSaga() {
      
     // yield takeEvery('GET_GIFS', fetchGifs);
 
-//     yield takeEvery('ADD_FAV', addFavs);
+    yield takeEvery('ADD_FAV', addFavs);
 
 //     yield takeEvery('SET_CAT', setCat);
 
